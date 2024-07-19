@@ -15,6 +15,24 @@ class Student:
 Курсы в процессе изучения: {', '.join(self.courses_in_progress)}
 Завершенные курсы: {', '.join(self.finished_courses)}'''
 
+    def __eq__(self, other):
+        return self.student_get_avg_rate() == other.student_get_avg_rate()
+
+    def __ne__(self, other):
+        return self.student_get_avg_rate() != other.student_get_avg_rate()
+
+    def __lt__(self, other):
+        return self.student_get_avg_rate() < other.student_get_avg_rate()
+
+    def __le__(self, other):
+        return self.student_get_avg_rate() <= other.student_get_avg_rate()
+
+    def __gt__(self, other):
+        return self.student_get_avg_rate() > other.student_get_avg_rate()
+
+    def __ge__(self, other):
+        return self.student_get_avg_rate() >= other.student_get_avg_rate()
+        
     def student_get_avg_rate(self):
         avg_rate = []
         for value in self.grades.values():
@@ -67,6 +85,25 @@ class Lecturer(Mentor):
         return f'''Имя: {self.name}
 Фамилия: {self.surname}
 Средняя оценка за лекции: {rate:.1f}'''
+
+    def __eq__(self, other):
+        return self.get_avg_rate() == other.get_avg_rate()
+
+    def __ne__(self, other):
+        return self.get_avg_rate() != other.get_avg_rate()
+
+    def __lt__(self, other):
+        return self.get_avg_rate() < other.get_avg_rate()
+
+    def __le__(self, other):
+        return self.get_avg_rate() <= other.get_avg_rate()
+
+    def __gt__(self, other):
+        return self.get_avg_rate() > other.get_avg_rate()
+
+    def __ge__(self, other):
+        return self.get_avg_rate() >= other.get_avg_rate()
+
 
     def get_avg_rate(self):
         avg_rate = []
@@ -146,3 +183,16 @@ def lectors_avg_rate(lectors: list, course: str):
 
 lectors_rate = lectors_avg_rate([new_mentor, student1], 'Python')
 print(lectors_rate)
+
+new_mentor1 = Lecturer('Some', 'Buddy')
+new_mentor1.courses_attached += ['Python', 'Java']
+new_mentor2 = Lecturer('Some', 'Buddy')
+new_mentor2.courses_attached += ['Python', 'Java']
+best_student.rate_lector(new_mentor1, 10, 'Python')
+best_student.rate_lector(new_mentor1, 10, 'Python')
+best_student.rate_lector(new_mentor2, 10, 'Python')
+best_student.rate_lector(new_mentor2, 10, 'Python')
+
+print(student1)
+print(student2)
+print(student1 != student2)
