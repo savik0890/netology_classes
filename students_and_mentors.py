@@ -16,28 +16,49 @@ class Student:
 Завершенные курсы: {', '.join(self.finished_courses)}'''
 
     def __eq__(self, other):
-        return self.student_get_avg_rate() == other.student_get_avg_rate()
+        if isinstance(other, Student):
+            return self.student_get_avg_rate() == other.student_get_avg_rate()
+        else:
+            return f'{other.name} {other.surname} не является студентом'
 
     def __ne__(self, other):
-        return self.student_get_avg_rate() != other.student_get_avg_rate()
+        if isinstance(other, Student):
+            return self.student_get_avg_rate() != other.student_get_avg_rate()
+        else:
+            return f'{other.name} {other.surname} не является студентом'
 
     def __lt__(self, other):
-        return self.student_get_avg_rate() < other.student_get_avg_rate()
+        if isinstance(other, Student):
+            return self.student_get_avg_rate() < other.student_get_avg_rate()
+        else:
+            return f'{other.name} {other.surname} не является студентом'
 
     def __le__(self, other):
-        return self.student_get_avg_rate() <= other.student_get_avg_rate()
+        if isinstance(other, Student):
+            return self.student_get_avg_rate() <= other.student_get_avg_rate()
+        else:
+            return f'{other.name} {other.surname} не является студентом'
 
     def __gt__(self, other):
-        return self.student_get_avg_rate() > other.student_get_avg_rate()
+        if isinstance(other, Student):
+            return self.student_get_avg_rate() > other.student_get_avg_rate()
+        else:
+            return f'{other.name} {other.surname} не является студентом'
 
     def __ge__(self, other):
-        return self.student_get_avg_rate() >= other.student_get_avg_rate()
-        
+        if isinstance(other, Student):
+            return self.student_get_avg_rate() >= other.student_get_avg_rate()
+        else:
+            return f'{other.name} {other.surname} не является студентом'
+
     def student_get_avg_rate(self):
         avg_rate = []
         for value in self.grades.values():
             avg_rate += value
-        return sum(avg_rate) / len(avg_rate)
+        try:
+            return sum(avg_rate) / len(avg_rate)
+        except ZeroDivisionError:
+            return 'У студента нет оценок'
 
     def rate_lector(self, lector, grade, course):
         if isinstance(lector, Lecturer):
@@ -87,29 +108,49 @@ class Lecturer(Mentor):
 Средняя оценка за лекции: {rate:.1f}'''
 
     def __eq__(self, other):
-        return self.get_avg_rate() == other.get_avg_rate()
+        if isinstance(other, Lecturer):
+            return self.get_avg_rate() == other.get_avg_rate()
+        else:
+            return f'{other.name} {other.surname} не является лектором'
 
     def __ne__(self, other):
-        return self.get_avg_rate() != other.get_avg_rate()
+        if isinstance(other, Lecturer):
+            return self.get_avg_rate() != other.get_avg_rate()
+        else:
+            return f'{other.name} {other.surname} не является лектором'
 
     def __lt__(self, other):
-        return self.get_avg_rate() < other.get_avg_rate()
+        if isinstance(other, Lecturer):
+            return self.get_avg_rate() < other.get_avg_rate()
+        else:
+            return f'{other.name} {other.surname} не является лектором'
 
     def __le__(self, other):
-        return self.get_avg_rate() <= other.get_avg_rate()
+        if isinstance(other, Lecturer):
+            return self.get_avg_rate() <= other.get_avg_rate()
+        else:
+            return f'{other.name} {other.surname} не является лектором'
 
     def __gt__(self, other):
-        return self.get_avg_rate() > other.get_avg_rate()
+        if isinstance(other, Lecturer):
+            return self.get_avg_rate() > other.get_avg_rate()
+        else:
+            return f'{other.name} {other.surname} не является лектором'
 
     def __ge__(self, other):
-        return self.get_avg_rate() >= other.get_avg_rate()
-
+        if isinstance(other, Lecturer):
+            return self.get_avg_rate() >= other.get_avg_rate()
+        else:
+            return f'{other.name} {other.surname} не является лектором'
 
     def get_avg_rate(self):
         avg_rate = []
         for value in self.grades.values():
             avg_rate += value
-        return sum(avg_rate) / len(avg_rate)
+        try:
+            return sum(avg_rate) / len(avg_rate)
+        except ZeroDivisionError:
+            return 'Данному лектору еще не ставили оценки'
 
 
 best_student = Student('Ruoy', 'Eman', 'your_gender')
@@ -184,6 +225,7 @@ def lectors_avg_rate(lectors: list, course: str):
 lectors_rate = lectors_avg_rate([new_mentor, student1], 'Python')
 print(lectors_rate)
 
+
 new_mentor1 = Lecturer('Some', 'Buddy')
 new_mentor1.courses_attached += ['Python', 'Java']
 new_mentor2 = Lecturer('Some', 'Buddy')
@@ -195,4 +237,4 @@ best_student.rate_lector(new_mentor2, 10, 'Python')
 
 print(student1)
 print(student2)
-print(student1 != student2)
+print(new_mentor1 <= student2)
